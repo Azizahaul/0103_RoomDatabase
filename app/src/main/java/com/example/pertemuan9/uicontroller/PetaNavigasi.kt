@@ -16,6 +16,10 @@ import com.example.aplikasisiswa.ui.halaman.DestinasiHome
 import com.example.aplikasisiswa.ui.halaman.EntrySiswaScreen
 import com.example.aplikasisiswa.ui.halaman.HomeScreen
 
+@Composable
+fun SiswaApp(navController: NavHostController = rememberNavController()){
+    HostNavigasi(navController = navController)
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SiswaTopAppBar(
