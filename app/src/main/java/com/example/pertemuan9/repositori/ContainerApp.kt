@@ -6,5 +6,9 @@ interface ContainerApp {
     val repositoriSiswa: RepositoriSiswa
 }
 class ContainerDataApp(private val context: Context): ContainerApp {
-    // Implementasi variabel menyusul di commit berikutnya
+    class ContainerDataApp(private val context: Context): ContainerApp {
+        override val repositoriSiswa: RepositoriSiswa by lazy {
+            OfflineRepositoriSiswa(DatabaseSiswa.getDatabase(context).siswaDao())
+        }
+    } // Implementasi variabel menyusul di commit berikutnya
 }
