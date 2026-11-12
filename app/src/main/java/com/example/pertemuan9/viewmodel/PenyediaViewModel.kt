@@ -8,6 +8,12 @@ import com.example.aplikasisiswa.AplikasiSiswa
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
+        initializer {
+            HomeViewModel(aplikasiSiswa().container.repositoriSiswa)
+        }
 
+        initializer {
+            EntryViewModel(aplikasiSiswa().container.repositoriSiswa)
+        }
     }
 }
