@@ -22,7 +22,7 @@ setContent {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-
+            SiswaApp()
         }
     }
 }
