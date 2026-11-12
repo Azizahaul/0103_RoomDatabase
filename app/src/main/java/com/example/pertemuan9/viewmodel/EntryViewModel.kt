@@ -8,6 +8,17 @@ import com.example.aplikasisiswa.data.RepositoriSiswa
 import com.example.aplikasisiswa.data.Siswa
 
 class EntryViewModel(private val repositoriSiswa: RepositoriSiswa): ViewModel() {
+    private fun validasiInput(uiState: DetailSiswa = uiStateSiswa.detailSiswa ): Boolean {
+        return with(uiState) { nama.isNotBlank() && alamat.isNotBlank() && telpon.isNotBlank() }
+    }
+
+    fun updateUiState(detailSiswa: DetailSiswa) {
+        uiStateSiswa = UIStateSiswa(detailSiswa = detailSiswa, isEntryValid = validasiInput(detailSiswa))
+    }
+
+    suspend fun saveSiswa() {
+        if (validasiInput()) { repositoriSiswa.insertSiswa(uiStateSiswa.detailSiswa.toSiswa()) }
+    }
     var uiStateSiswa by mutableStateOf(UIStateSiswa())
         private set
 }
