@@ -18,17 +18,83 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.aplikasisiswa.R
-import com.example.aplikasisiswa.data.Siswa
-import com.example.aplikasisiswa.ui.navigasi.DestinasiNavigasi
-import com.example.aplikasisiswa.ui.navigasi.SiswaTopAppBar
-import com.example.aplikasisiswa.ui.viewmodel.HomeViewModel
-import com.example.aplikasisiswa.ui.viewmodel.PenyediaViewModel
+import com.example.pertemuan9.R
+import com.example.pertemuan9.room.Siswa
+import com.example.pertemuan9.uicontroller.DestinasiNavigasi
+import com.example.pertemuan9.uicontroller.SiswaTopAppBar
+import com.example.pertemuan9.viewmodel.HomeViewModel
+import com.example.pertemuan9.viewmodel.PenyediaViewModel
 
 object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
     override val titleRes = R.string.app_name
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreen(
+    navigateToItemEntry: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            SiswaTopAppBar(
+                title = stringResource(DestinasiHome.titleRes),
+                canNavigateBack = false,
+                scrollBehavior = scrollBehavior
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.entry_siswa)
+                )
+            }
+        },
+    ) { innerPadding ->
+        val uiStateSiswa by viewModel.homeUiState.collectAsState()
+        BodyHome(
+            itemSiswa = uiStateSiswa.listSiswa,
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+        )
+    }
+}
+
+@Composable
+fun BodyHome(
+    itemSiswa: List<Siswa>,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
+        if (itemSiswa.isEmpty()) {
+            Text(
+                text = stringResource(R.string.deskripsi_no_item),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge
+            )
+        } else {
+            ListSiswa(
+                itemSiswa = itemSiswa,
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+            )
+        }
+    }
+}
+
 @Composable
 fun ListSiswa(
     itemSiswa: List<Siswa>,
@@ -79,70 +145,6 @@ fun DataSiswa(
                 text = siswa.alamat,
                 style = MaterialTheme.typography.titleMedium
             )
-        }
-    }
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun HomeScreen(
-        navigateToItemEntry: () -> Unit,
-        modifier: Modifier = Modifier,
-        viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
-    ) {
-        val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-
-        Scaffold(
-            modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                SiswaTopAppBar(
-                    title = stringResource(DestinasiHome.titleRes),
-                    canNavigateBack = false,
-                    scrollBehavior = scrollBehavior
-                )
-            },
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = navigateToItemEntry,
-                    shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = stringResource(R.string.entry_siswa)
-                    )
-                }
-            },
-        ) { innerPadding ->
-            val uiStateSiswa by viewModel.homeUiState.collectAsState()
-            BodyHome(
-                itemSiswa = uiStateSiswa.listSiswa,
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-            )
-        }
-    }
-
-    @Composable
-    fun BodyHome(
-        itemSiswa: List<Siswa>,
-        modifier: Modifier = Modifier
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier
-        ) {
-            if (itemSiswa.isEmpty()) {
-                Text(
-                    text = stringResource(R.string.deskripsi_no_item),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge
-                )
-            } else {
-                ListSiswa(
-                    itemSiswa = itemSiswa,
-                    modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
-                )
-            }
         }
     }
 }

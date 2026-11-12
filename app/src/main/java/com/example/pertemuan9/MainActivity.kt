@@ -7,22 +7,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.aplikasisiswa.ui.theme.RoomSiswaTheme // Sesuaikan dengan nama theme Anda
-import com.example.aplikasisiswa.ui.navigasi.SiswaApp
+import com.example.pertemuan9.ui.theme.Pertemuan9Theme
+import com.example.pertemuan9.uicontroller.SiswaApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
 
-}
-setContent {
-    RoomSiswaTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            SiswaApp()
+        setContent {
+            // Nama tema disesuaikan dengan proyek Anda
+            Pertemuan9Theme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    SiswaApp()
+                }
+            }
         }
     }
 }
