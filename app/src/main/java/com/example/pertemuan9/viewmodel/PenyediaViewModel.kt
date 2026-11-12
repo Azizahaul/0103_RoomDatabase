@@ -16,4 +16,6 @@ object PenyediaViewModel {
             EntryViewModel(aplikasiSiswa().container.repositoriSiswa)
         }
     }
+    fun CreationExtras.aplikasiSiswa(): AplikasiSiswa =
+        (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as AplikasiSiswa)
 }
