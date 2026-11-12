@@ -1,4 +1,8 @@
-package com.example.pertemuan9.room
+package com.example.pertemuan9.data
 
-class Siswa {
-}
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+data class Siswa(
+    // Properti akan ditambahkan di commit selanjutnya
+)
