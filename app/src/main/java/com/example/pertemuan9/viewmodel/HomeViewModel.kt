@@ -16,4 +16,11 @@ class HomeViewModel(private val repositoriSiswa: RepositoriSiswa): ViewModel(){
     data class HomeUiState(
         val listSiswa: List<Siswa> = listOf()
     )
+    val homeUiState: StateFlow<HomeUiState> = repositoriSiswa.getAllSiswaStream()
+        .filterNotNull()
+        .map { HomeUiState(listSiswa = it.toList()) }
+        .stateIn(scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+            initialValue = HomeUiState()
+        )
 }
