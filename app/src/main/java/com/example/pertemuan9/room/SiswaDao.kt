@@ -15,9 +15,8 @@ interface SiswaDao {
 
     @Query("SELECT * from tblSiswa ORDER BY nama ASC")
     fun getAllSiswa(): Flow<List<Siswa>>
-}
 
- //edit:tambah 3 fungsi berikut
+    //edit:tambah 3 fungsi berikut
     @Query(value= "SELECT * from tblSiswa WHERE id = :id")
     fun getSiswa(id: Int): Flow<Siswa>
 
@@ -26,4 +25,7 @@ interface SiswaDao {
 
     @Update
     suspend fun update(siswa: Siswa)
+
+}
+
 
