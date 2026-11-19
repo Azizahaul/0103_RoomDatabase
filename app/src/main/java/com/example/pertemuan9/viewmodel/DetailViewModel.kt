@@ -30,6 +30,14 @@ class DetailViewModel(
             )
 
     suspend fun deleteSiswa() {
-        // lanjutannya ada di bagian bawah slide
+        repositoriSiswa.deleteSiswa(uiDetailState.value.detailSiswa.toSiswa())
+    }
+
+    companion object {
+        private const val TIMEOUT_MILLIS = 5_000L
     }
 }
+
+data class DetailSiswaUiState(
+    val detailSiswa: DetailSiswa = DetailSiswa()
+)
