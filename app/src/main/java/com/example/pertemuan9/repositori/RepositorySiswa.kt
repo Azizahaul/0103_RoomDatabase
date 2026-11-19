@@ -7,6 +7,10 @@ import com.example.pertemuan9.room.SiswaDao
 interface RepositoriSiswa {
     fun getAllSiswaStream(): Flow<List<Siswa>>
     suspend fun insertSiswa(siswa: Siswa)
+
+    //edit 1: tambah 3 fungsi berikut
+    fun getSiswaStream(id: Int): Flow<Siswa?>
+
 }
 
 class OfflineRepositoriSiswa(private val siswaDao: SiswaDao): RepositoriSiswa {
