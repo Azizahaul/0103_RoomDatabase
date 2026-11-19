@@ -10,4 +10,5 @@
     <string name="btn_submit">Simpan</string>
     <string name="back">Kembali</string>
     <string name="edit_siswa">Edit Siswa</string>
+    <string name="detail_siswa">Detail Siswa</string>
 </resources>
